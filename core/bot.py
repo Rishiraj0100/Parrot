@@ -15,16 +15,16 @@ from enum import Enum
 from pathlib import Path
 from typing import TYPE_CHECKING, override
 
-import aiohttp
 import discord
-import jishaku
-import pomice
 from discord.ext import commands
 from dotenv import load_dotenv
 from pomice.exceptions import NodeConnectionFailure
 from pymongo.errors import PyMongoError
 from redis.exceptions import RedisError
 from watchfiles import awatch
+lazy import aiohttp
+lazy import jishaku
+lazy import pomice
 
 from .config import (
     DISCORD_BOT_TOKEN,
@@ -64,7 +64,7 @@ class SpamSeverity(Enum):
 
 class Bot(commands.Bot):
     VERSION = "1.0.0 (Rewrite)"
-    DEFAULT_PREFIX = os.environ.get("DEFAULT_PREFIX", "$")
+    DEFAULT_PREFIX = os.environ.get("DEFAULT_PREFIX", "?")
 
     if TYPE_CHECKING:
         user: discord.ClientUser
@@ -125,6 +125,12 @@ class Bot(commands.Bot):
 
     @override
     async def setup_hook(self) -> None:
+        await self.database.ensure_indexes()
+        await self.database.ensure_schemas()
+
+        await self.event_scheduler.ensure_indexes()
+        await self.event_scheduler.ensure_schema()
+
         await self.load_extension(jishaku.__name__)
 
         count = 0

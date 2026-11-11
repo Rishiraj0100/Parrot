@@ -12,17 +12,17 @@ from fnmatch import fnmatchcase
 from functools import partial
 from typing import TYPE_CHECKING, Any
 
-import aiohttp
 import discord
-import matplotlib.dates as mdates
 import psutil
 from colorama import Fore
 from discord.ext import commands, tasks
 from humanfriendly import InvalidTimespan, parse_timespan
-from jishaku.codeblocks import codeblock_converter
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-from matplotlib.figure import Figure
 from rapidfuzz import fuzz, process
+lazy import aiohttp
+lazy import matplotlib.dates as mdates
+lazy from jishaku.codeblocks import Codeblock
+lazy from matplotlib.backends.backend_agg import FigureCanvasAgg
+lazy from matplotlib.figure import Figure
 
 from .panel import OwnerPanel
 
@@ -552,7 +552,7 @@ class Owner(commands.Cog, command_attrs={"hidden": True}):
                 await msg.reply("\N{WAVING HAND SIGN} Exiting Redis REPL session.")
                 break
 
-            codeblock = codeblock_converter(msg.content)
+            codeblock = Codeblock.convert_raw(msg.content)
             try:
                 result = await self.bot.database.redis_client.execute_command(codeblock.content)
                 if len(str(result)) > REDIS_RESULT_LIMIT:
