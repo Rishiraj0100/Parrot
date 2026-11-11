@@ -60,10 +60,8 @@ class DatabaseManager(_DatabaseInfraMixin, _GuildMixin, _UserMixin, _ScamLinksMi
     def __init__(self, bot: Bot, /) -> None:
         self.bot = bot
 
-        pool = BlockingConnectionPool(
-            host="localhost",
-            port=6379,
-            db=0,
+        pool = BlockingConnectionPool.from_url(
+            "redis://default:root@upcycled-morning-quiver-35297.db.redis.io:11965",
             decode_responses=True,
             protocol=3,
             max_connections=200,

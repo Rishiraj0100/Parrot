@@ -3,7 +3,22 @@
 {% block title %}Parrot — Discord bot{% endblock %}
 
 {% block content %}
-<div id="parrot-app" class="page-shell">
+      <div class="mx-auto mt-16 max-w-[80%] rounded-2xl border border-border bg-surface p-6">
+    <span class="text-sm font-semibold text-secondary">● Bot Online</span>
+    <h1 class="mt-2 text-2xl font-bold">My Discord Bot</h1>
+    <p class="mt-1 text-text-muted">Moderation and leveling for your community.</p>
+
+    <div class="mt-6 flex gap-3">
+      <button class="rounded-xl bg-primary px-4 py-2 font-medium text-white hover:bg-hover-primary">
+        Add to Discord
+      </button>
+      <button
+        onclick="document.documentElement.classList.toggle('light')"
+        class="rounded-xl border border-border bg-elevated-card px-4 py-2 font-medium"
+      >
+        Toggle Theme
+      </button>
+  </div>
     <div class="ticker" aria-hidden="true"><span>★ ★ ★ WELCOME TO THE PARROT HOMEPAGE ★ ★ ★ Now serving [[ formatNumber(bot.telemetry.guild_count) ]] servers ★ Please
             bookmark this page ★ ★ ★</span></div>
 
@@ -19,8 +34,7 @@
     <main>
         <section class="hero info-hero" aria-labelledby="hero-title">
             <div class="hero-copy">
-                <div class="eyebrow"><span class="status-dot" :class="{'is-down': !bot.connected}"></span> Status: [[ bot.connected ? 'BOT CONNECTED' : 'BOT STATUS
-                    UNAVAILABLE' ]]</div>
+                <div class="eyebrow"><span class="status-dot" :class="{'is-down': !bot.connected}"></span> Status: [[ bot.connected ? 'BOT CONNECTED' : 'BOT STATUS UNAVAILABLE' ]]</div>
                 <h1 id="hero-title">Welcome to<br><span>Parrot!</span></h1>
                 <p class="hero-description"><span class="new-badge">NEW!</span> A modular Discord bot with tools for moderation, music, games, community and more. Browse
                     what is loaded and see the live bot status below.</p>
@@ -45,8 +59,7 @@
                     communities</small></article>
             <article class="stat-card"><span class="stat-label">Members</span><strong>[[ formatNumber(bot.telemetry.user_count) ]]</strong><small>Across connected
                     servers</small></article>
-            <article class="stat-card"><span class="stat-label">Latency</span><strong>[[ bot.telemetry.latency_ms == null ? '—' : Math.round(bot.telemetry.latency_ms) + '
-                    ms' ]]</strong><small>Discord gateway response</small></article>
+            <article class="stat-card"><span class="stat-label">Latency</span><strong>[[ bot.telemetry.latency_ms == null ? '—' : Math.round(bot.telemetry.latency_ms) + 'ms' ]]</strong><small>Discord gateway response</small></article>
             <article class="stat-card"><span class="stat-label">Uptime</span><strong>[[ formatUptime(bot.telemetry.uptime_sec) ]]</strong><small>Since last
                     restart</small></article>
         </section>

@@ -57,7 +57,11 @@ class ClashOfClans(SupercellCog, command_attrs={"hidden": True}):
     ) -> None:
         """Show a Clash of Clans player profile."""
         async with ctx.typing():
-            tag = await self.resolve_tag(ctx, tag, user)
+            try:
+                tag = await self.resolve_tag(ctx, tag, user)
+            except SupercellError as e:
+                await ctx.send(e.args[0])
+                return
             player = await self.api.get(f"/players/{enc(tag)}", ttl=120)
             await self.show(ctx, self._profile_tabs(player))
 
