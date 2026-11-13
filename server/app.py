@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 from redis.asyncio import Redis
 from starlette.middleware.sessions import SessionMiddleware
 
-from .config import SESSION_SECRET
+from .config import SESSION_SECRET, REDIS_URI
 
 __all__ = ("app",)
 
@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).parent
 
 app = FastAPI(title="Bot")
 app.add_middleware(SessionMiddleware, secret_key=SESSION_SECRET, max_age=86400 * 7)
-app.state.redis_client = Redis(protocol=3)
+app.state.redis_client = Redis.from_url(REDIS_URI, protocol=3)
 
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 

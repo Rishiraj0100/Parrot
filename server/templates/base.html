@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fbf9f5">
     <title>{% block title %}{{page_title if page_title else 'Parrot — Discord bot'}}{% endblock %}</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', path='css/retro.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', path='css/retro.css') }}">
   <style type="text/tailwindcss">
     /* Dark */
     :root {
@@ -36,11 +36,11 @@
   </style>
 </head>
 
-<body class="bg-bg text-text-primary min-h-screen min-w-screen">
+<body class="">
     {% block content %}{% endblock %}
 
-    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     {% block scripts %}{% endblock %}
 </body>
 
